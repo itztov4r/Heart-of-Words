@@ -23,3 +23,8 @@ Open **Settings → Pages**, select **Deploy from a branch**, choose **main** an
 ## Animations disabled?
 
 On Windows 11, enable **Settings → Accessibility → Visual effects → Animation effects**, then reopen your browser.
+
+
+## Audit verification
+
+Run `node --test tests/*.test.js` for simulated-canvas behavior checks. See [AUDIT.md](AUDIT.md) for changes, test evidence and remaining visual checks.
