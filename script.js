@@ -3,6 +3,8 @@ const canvas=document.getElementById('heart'),ctx=canvas.getContext('2d');
 const initial=['I love you', 'Je t’aime', 'Kanbghik', 'Te amo', 'Ti amo', 'Ich liebe dich', 'أحبك', 'Seni seviyorum', 'Eu te amo', '사랑해', '大好き', 'Я тебя люблю', 'Te iubesc', 'Kocham cię', 'Σ’ αγαπώ', 'Mahal kita', 'Ik hou van jou', 'Jag älskar dig', 'Ninakupenda', 'Wo ai ni', 'Nakupenda', 'Mi amas vin'];
 let words=initial.slice(),color='#f12b43',particles=[],width=0,height=0,start=performance.now(),scale=1;
 const reduced=matchMedia('(prefers-reduced-motion: reduce)');
+let paused=false,pausedAt=0,frameId=0;
+function requestDraw(){if(!frameId&&!document.hidden)frameId=requestAnimationFrame(draw);}
 function inside(x,y){return Math.pow(x*x+y*y-1,3)-x*x*y*y*y<=0;}
 function random(n){const v=Math.sin(n*127.1+311.7)*43758.5453;return v-Math.floor(v);}
 function layout(){
@@ -26,6 +28,7 @@ function layout(){
  particles.forEach((p,i)=>{p.delay=i/Math.max(particles.length-1,1)*4200+p.key*450;const angle=random(i+39)*Math.PI*2;const distance=scale*(1.4+random(i+99)*1.8);p.fromX=Math.cos(angle)*distance;p.fromY=Math.sin(angle)*distance;p.turn=(random(i+75)-.5)*1.6;});
 }
 function draw(now){
+ frameId=0;if(document.hidden)return;if(paused)now=pausedAt;
  ctx.clearRect(0,0,width,height);const elapsed=(now-start)%19000;
  const phase=now%1450/1450;
  const pulse=Math.exp(-Math.pow((phase-.12)/.065,2))+.55*Math.exp(-Math.pow((phase-.3)/.09,2));
@@ -42,13 +45,18 @@ function draw(now){
   ctx.save();ctx.translate(p.x+(p.fromX-p.x)*(1-ease)+(1-exit)*p.fromX*.35,p.y+(p.fromY-p.y)*(1-ease)+drift+(1-exit)*p.fromY*.35);ctx.rotate(p.turn*(1-ease));
   ctx.globalAlpha=progress*p.opacity*exit;ctx.font=`600 ${p.font}px Arial, sans-serif`;ctx.fillStyle=shimmer>.65?'#ffd0d8':color;ctx.shadowColor=color;ctx.shadowBlur=scale*(.014+shimmer*.045+pulse*.01);ctx.fillText(p.text,0,0);ctx.restore();
  }
- ctx.restore();requestAnimationFrame(draw);
+ ctx.restore();if(!paused&&!reduced.matches)requestDraw();
 }
-function replay(){start=performance.now();}
+function replay(){start=performance.now();pausedAt=start;requestDraw();}
 const panel=document.getElementById('panel'),input=document.getElementById('words'),picker=document.getElementById('color');input.value=words.join('\n');
 document.getElementById('settings').addEventListener('click',()=>{panel.hidden=!panel.hidden;if(!panel.hidden)input.focus();});
 document.getElementById('close').addEventListener('click',()=>{panel.hidden=true;document.getElementById('settings').focus();});
 document.getElementById('apply').addEventListener('click',()=>{const next=input.value.split('\n').map(s=>s.trim().slice(0,60)).filter(Boolean);words=next.length?next:initial.slice();color=picker.value;input.value=words.join('\n');layout();replay();panel.hidden=true;});
 canvas.addEventListener('click',replay);
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){panel.hidden=true;document.getElementById('settings').focus();}if((e.code==='Space'||e.code==='Enter')&&panel.hidden&&(e.target===document.body||e.target===canvas)){e.preventDefault();replay();}});
-addEventListener('resize',layout);layout();requestAnimationFrame(draw);
+const pauseButton=document.getElementById('pause');
+pauseButton.onclick=()=>{paused=!paused;if(paused)pausedAt=performance.now();else start+=performance.now()-pausedAt;pauseButton.textContent=paused?'▶':'Ⅱ';pauseButton.setAttribute('aria-pressed',String(paused));pauseButton.setAttribute('aria-label',paused?'Play animation':'Pause animation');requestDraw();};
+reduced.addEventListener('change',requestDraw);
+document.addEventListener('visibilitychange',requestDraw);
+addEventListener('resize',()=>{layout();requestDraw();});layout();requestDraw();
+
