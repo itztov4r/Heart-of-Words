@@ -50,5 +50,5 @@ document.getElementById('settings').addEventListener('click',()=>{panel.hidden=!
 document.getElementById('close').addEventListener('click',()=>{panel.hidden=true;document.getElementById('settings').focus();});
 document.getElementById('apply').addEventListener('click',()=>{const next=input.value.split('\n').map(s=>s.trim().slice(0,60)).filter(Boolean);words=next.length?next:initial.slice();color=picker.value;input.value=words.join('\n');layout();replay();panel.hidden=true;});
 canvas.addEventListener('click',replay);
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){panel.hidden=true;document.getElementById('settings').focus();}if(e.code==='Space'&&panel.hidden&&e.target===document.body){e.preventDefault();replay();}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){panel.hidden=true;document.getElementById('settings').focus();}if((e.code==='Space'||e.code==='Enter')&&panel.hidden&&(e.target===document.body||e.target===canvas)){e.preventDefault();replay();}});
 addEventListener('resize',layout);layout();requestAnimationFrame(draw);
