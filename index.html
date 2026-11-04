@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#000000"><meta name="description" content="A heart that comes to life, one word at a time.">
+<title>Heart of Words</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main aria-label="An animated heart made of love words"><canvas id="heart" role="img" aria-label="A red heart made of I love you in different languages"></canvas></main>
+<button id="settings" class="icon" aria-label="Customize heart" title="Customize heart">✎</button>
+<section id="panel" hidden aria-label="Customize your heart">
+<header><span>Your heart, your words.</span><button id="close" aria-label="Close settings">×</button></header>
+<label for="words">Words · one per line</label>
+<textarea id="words" rows="6" maxlength="1600" spellcheck="false"></textarea>
+<div class="options"><label for="color">Heart color</label><input type="color" id="color" value="#f12b43"></div>
+<button id="apply">Replay heart ↗</button>
+<p>Press Space or tap the heart to replay.</p>
+</section>
+<script src="script.js"></script>
+</body>
+</html>
