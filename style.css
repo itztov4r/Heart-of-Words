@@ -2,3 +2,17 @@
 
 /* Keyboard users can reach and replay the canvas, not only pointer users. */
 canvas:focus-visible{outline:3px solid #f12b43;outline-offset:-8px}
+
+
+/* Small screens, software keyboards and safe-area support. */
+.icon { right:max(16px,env(safe-area-inset-right)); bottom:max(16px,env(safe-area-inset-bottom)); min-width:44px;min-height:44px; }
+section { max-height:calc(100dvh - 96px); overflow-y:auto; overscroll-behavior:contain; }
+@media(max-width:480px){
+ section{right:12px;bottom:calc(70px + env(safe-area-inset-bottom));width:calc(100vw - 24px);padding:18px;border-radius:14px}
+ header{margin-bottom:16px;gap:12px}header span{min-width:0;overflow-wrap:anywhere}
+ header button{min-width:44px;min-height:44px}
+ textarea{font-size:16px;max-height:26dvh}
+ .options{gap:14px;flex-wrap:wrap}
+ #apply{min-height:44px}
+}
+
