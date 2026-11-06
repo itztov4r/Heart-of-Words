@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#050608">
+  <meta name="description" content="An interactive constellation of light, built around a sparkling diamond ring.">
+  <title>LOVE ME — A Ring of Light</title>
+  <link rel="stylesheet" href="./style.css">
+  <script src="./script.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#message">Skip to the message</a>
+  <main class="experience" id="experience">
+    <canvas id="universe" aria-hidden="true"></canvas>
+    <div class="vignette" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <a class="brand" href="#message" aria-label="Love Me, homepage"><span class="brand-symbol">✧</span><span>LOVE <span class="brand-light">ME.</span></span></a>
+      <div class="top-right"><span class="live-dot"></span><span>AN INTERACTIVE LOVE LETTER</span></div>
+    </header>
+
+    <section class="hero" aria-label="An animated diamond ring with stars">
+      <div class="hero-topline"><span class="mini-rule"></span> SOME THINGS ARE FOREVER <span class="mini-rule"></span></div>
+      <div class="stage" id="stage" role="img" aria-label="A luminous silver diamond ring, slowly revolving among drifting stars"></div>
+      <div class="hero-copy" id="message">
+        <span class="eyebrow">A LITTLE UNIVERSE, JUST FOR YOU</span>
+        <h1>Love <em>Me.</em></h1>
+        <p>Even in a universe of a billion stars, <span>there is only one you.</span></p>
+      </div>
+    </section>
+
+    <div class="side-note" aria-hidden="true">01 / INFINITE MOMENTS</div>
+    <div class="coordinates" aria-hidden="true"><span>EST. IN STARDUST</span><span>∞ &nbsp; FOREVER</span></div>
+
+    <footer class="bottom-bar">
+      <div class="interaction-note"><span class="spin-icon">✳</span><span>MOVE YOUR CURSOR · TAP THE RING</span></div>
+      <div class="music-group">
+        <span class="music-state" id="music-state" aria-live="polite">SOUND OFF</span>
+        <button class="music-toggle" id="music-toggle" type="button" aria-label="Play background music" aria-pressed="false">
+          <svg viewBox="0 0 24 24" aria-hidden="true" width="18" height="18"><path d="M9 18V5l12-2v13M9 9l12-2M9 18c0 1.7-1.7 3-3.8 3C3 21 1.5 19.9 1.5 18.2 1.5 16.5 3.1 15 5.2 15S9 16.3 9 18ZM21 16c0 1.7-1.7 3-3.8 3-2.1 0-3.7-1.1-3.7-2.8s1.6-3.2 3.7-3.2S21 14.3 21 16Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span id="music-action">PLAY MUSIC</span>
+          <span class="music-bars" aria-hidden="true"><i></i><i></i><i></i></span>
+        </button>
+      </div>
+    </footer>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </main>
+  <noscript><p class="noscript">Enable JavaScript to enjoy the animated ring.</p></noscript>
+</body>
+</html>
